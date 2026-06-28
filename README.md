@@ -1,2 +1,2 @@
 # Data-Engineering-Bootcamp
-Datax Bootcamp By Anurag Srivastava
+Data-x Bootcamp By Anurag Srivastava
