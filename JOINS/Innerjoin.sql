@@ -1,7 +1,7 @@
 -- INNER JOIN :- The most used join in the sql and the most common question to be asked in the interview.
 -- So this inner join will just match the records from both the tables or common record between the table as per joining the key.
 
-
+-- comment testing.
 
 -- creating a new database for the joins_practice
 
