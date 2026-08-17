@@ -82,4 +82,4 @@ o.order_id,o.order_amount,o.order_status
 from orders as o 
 left join payments as p
 on o.order_id=p.order_id
-where p.payment_id is null;
+where p.payment_id is null
