@@ -295,7 +295,7 @@ group by c.customer_id,c.customer_name;
 
 
 -- showing the city_targets table
-select * from city_targets;
+select * from city_targets
 
 
 -- Question 24
