@@ -115,4 +115,42 @@ coalesce(o.order_amount,"0") as order_amount,
 coalesce(o.order_status,"NO ORDERS") as order_status 
 from customers as c 
 left join orders as o
+on c.customer_id=o.customer_id;
+
+-- Left join with aggregation
+
+-- Question - show every customer with total money spent
+
+select 
+c.customer_id,c.customer_name,
+coalesce(sum(o.order_amount),0) as total_spent
+from customers as c
+left join orders as o
 on c.customer_id=o.customer_id
+group by c.customer_id,c.customer_name;
+
+-- comparing where and on clause on the left join 
+
+-- where ( It only shows in our case only succesfully delivered orders)
+select
+c.customer_name,
+o.order_id,
+o.order_status
+from customers as c
+left join orders as o
+on c.customer_id=o.customer_id
+where o.order_Status='Delivered';
+
+-- on ( It Showed  us all succesfully delivered orders with people who haven't ordered anything also.)
+
+select
+c.customer_name,
+o.order_id,
+o.order_status
+from customers as c
+left join orders as o
+on c.customer_id=o.customer_id
+and o.order_status='Delivered';
+
+
+
