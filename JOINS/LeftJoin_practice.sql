@@ -82,4 +82,53 @@ o.order_id,o.order_amount,o.order_status
 from orders as o 
 left join payments as p
 on o.order_id=p.order_id
-where p.payment_id is null
+where p.payment_id is null;
+
+-- Question 11: Show every customer with total order amount. If customer has no order, show total as 0.
+select
+c.customer_id,c.customer_name,
+coalesce(sum(o.order_amount),0) as total_amount
+from customers as c 
+left join orders as o 
+on c.customer_id=o.customer_id
+group by c.customer_id,c.customer_name;
+
+-- Question 12: Show every customer with total number of orders.
+select 
+c.customer_id,c.customer_name,
+count(o.order_id) as Total_orders
+from customers as c 
+left join orders as o
+on c.customer_id=o.customer_id
+group by c.customer_id,c.customer_name;
+
+-- Question 13: Show every customer with successful paid amount. If no successful payment exists, show 0.
+select 
+c.customer_id,c.customer_name,
+coalesce(sum(paid_amount),0) as Successful_Payment
+from customers as c
+left join orders as o 
+on c.customer_id=o.customer_id
+left join payments as p
+on o.order_id=p.order_id
+and p.payment_status="Success"
+group by c.customer_id,c.customer_name;
+
+-- Question 14: Show all products with total sales amount. If product has no order, show 0.
+
+select 
+p.product_id,p.product_name,
+coalesce(sum(o.order_amount),0) as `Total Sales`
+from products as p
+left join orders as o
+on p.product_id=o.product_id
+group by p.product_id,p.product_name;
+
+-- Question 15: Show all orders with payment status. If payment is missing, show No Payment.
+select 
+o.order_id,o.order_amount,o.order_status,
+coalesce((p.payment_status),"No Payment") as `Payment History`
+from orders as o 
+left join payments as p
+on o.order_id=p.order_id
+
