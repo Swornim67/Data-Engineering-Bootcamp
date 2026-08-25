@@ -130,5 +130,168 @@ o.order_id,o.order_amount,o.order_status,
 coalesce((p.payment_status),"No Payment") as `Payment History`
 from orders as o 
 left join payments as p
-on o.order_id=p.order_id
+on o.order_id=p.order_id;
 
+-- Question 16 What is wrong with this query?
+SELECT
+c.customer_name,
+COUNT(*) AS total_orders
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id
+GROUP BY c.customer_name;
+
+-- the wrong in this query is on the left join we cant use count(*) as it shows those people who doesnt have any orders also as 1 in all the row.
+
+-- correct query 
+select c.customer_name, 
+Count(o.order_id) as total_orders
+from customers c
+left join orders o
+on c.customer_id=o.customer_id
+group by c.customer_name;
+
+-- Question 17 Show all customers and only delivered orders if available.
+-- Wrong Query
+SELECT
+c.customer_name,
+o.order_id,
+o.order_status
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id
+WHERE o.order_status = 'Delivered';
+
+-- in this query this and removes the non delievered orders so we should use and operator 
+
+-- right query
+SELECT
+c.customer_name,
+o.order_id,
+o.order_status
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id
+and o.order_status = 'Delivered';
+
+
+-- Question 18: Show all customers and successful payment details if available.
+select 
+c.customer_id,c.customer_name,p.payment_mode,p.payment_status
+from customers as c
+left join orders as o
+on c.customer_id=o.customer_id
+left join payments as p
+on o.order_id=p.order_id
+and payment_status="Success";
+
+
+-- Question 19 Why does table order matter in LEFT JOIN?
+-- Example 1
+SELECT
+c.customer_name,
+o.order_id
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id;
+
+-- it matters because on the left join it primarly focuses on the left table which we are taking. it is considered as main table.
+
+-- Example 2
+SELECT
+c.customer_name,
+o.order_id
+FROM orders o
+LEFT JOIN customers c
+ON o.customer_id = c.customer_id;
+
+-- in this example the left table is orders so its the main table and the customers is the secondary table.
+
+-- Question 20 Can LEFT JOIN increase rows?
+
+-- Example Query
+SELECT
+c.customer_name,
+o.order_id
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id
+WHERE c.customer_name = 'Anurag';
+
+-- A LEFT JOIN can increase rows when one row in the left table matches multiple rows in the right table. 
+-- In this example, Anurag has 2 orders, so his 1 customer row becomes 2 result rows. The WHERE clause only filters the result to Anurag.
+
+-- Question 21 Show all customers with order, product, and payment details wherever available.
+select 
+c.customer_id,c.customer_name,o.order_id,pro.product_name,o.order_amount,	pay.payment_status
+from customers as c
+left join orders as o
+on c.customer_id=o.customer_id
+left join products as pro
+on o.product_id=pro.product_id
+LEFT JOIN payments as pay
+ON o.order_id = pay.order_id;
+
+-- Question 22: Show all orders with customer, product, and payment details wherever available.
+select
+o.order_id,o.customer_id,c.customer_name,p.product_name,o.order_amount,pay.payment_status
+FROM orders o
+LEFT JOIN customers c
+ON o.customer_id = c.customer_id
+LEFT JOIN products p
+ON o.product_id = p.product_id
+LEFT JOIN payments pay
+ON o.order_id = pay.order_id;
+
+-- Question 23 Create an order quality report showing whether customer, product, and payment mapping exists.
+
+-- Solution
+
+select 
+c.customer_name,
+o.order_id,
+o.customer_id,
+o.product_id,
+o.order_amount,
+
+CASE
+WHEN c.customer_id IS NULL THEN 'Invalid Customer'
+ELSE 'Valid Customer'
+END AS customer_check,
+
+CASE
+WHEN p.product_id IS NULL THEN 'Invalid Product'
+ELSE 'Valid Product'
+END AS product_check,
+
+CASE
+WHEN pay.payment_id IS NULL THEN 'No Payment'
+ELSE 'Payment Available'
+END AS payment_check
+
+from orders as o 
+left join customers as c
+on o.customer_id=c.customer_id
+left join products as p
+on o.product_id=p.product_id
+left join payments as pay
+on o.order_id=pay.order_id;
+
+-- Question 24 Find only problematic orders where customer, product, or payment is missing.
+
+SELECT
+o.order_id,o.customer_id,oo.order_amount,p.product_name,pay.payment_id
+
+FROM orders o
+LEFT JOIN customers c
+ON o.customer_id = c.customer_id
+
+LEFT JOIN products p
+ON o.product_id = p.product_id
+
+LEFT JOIN payments pay
+ON o.order_id = pay.order_id
+
+WHERE c.customer_id IS NULL
+OR p.product_id IS NULL
+OR pay.payment_id IS NULL;
