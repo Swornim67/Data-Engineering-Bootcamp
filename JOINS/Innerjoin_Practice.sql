@@ -6,8 +6,6 @@ SELECT * FROM products;
 SELECT * FROM payments;
 
 
-
-
 -- Question 1
 -- Show all valid orders with customer name and city.
 select 
