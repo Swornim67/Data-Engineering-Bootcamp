@@ -1,43 +1,43 @@
 # Data-Engineering-Bootcamp
 
-Data-x Bootcamp by Anurag Srivastava — my structured SQL learning journey, practiced hands-on in MySQL Workbench and Databricks.
+Data-x Bootcamp by Anurag Srivastava — my SQL learning journey, practiced hands-on in MySQL Workbench and Databricks.
 
 ## Topics Covered
 
 ### Core SQL
-- **SELECT** — columns, aliasing, literals, math expressions, concatenation, `DISTINCT`
-- **WHERE** — comparisons, `AND`/`OR`/`NOT`, `IN`, `BETWEEN`, `LIKE`, `IS NULL`
-- **ORDER BY** — sorting (`ASC`/`DESC`), multi-column sort, sort by position/alias
-- **LIMIT & OFFSET** — capping rows, top-N queries, finding the Nth rank
-- **Aggregate Functions** — `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`
-- **GROUP BY & HAVING** — grouping data and filtering aggregated results
-- **Date Functions** — `YEAR()`, `MONTH()`, `DAY()`
+- **SELECT** — picking columns, renaming them, doing math, joining text together, removing duplicates
+- **WHERE** — filtering rows using conditions like `AND`, `OR`, `IN`, `BETWEEN`, `LIKE`
+- **ORDER BY** — sorting results, ascending or descending
+- **LIMIT & OFFSET** — showing only a certain number of rows, or skipping ahead to find a specific rank
+- **Aggregate Functions** — getting totals, averages, counts, min/max values
+- **GROUP BY & HAVING** — grouping data by category and filtering those grouped results
+- **Date Functions** — pulling out the year, month, or day from a date
 
 ### SQL Keys
-Keys are what let SQL tables identify records uniquely and connect properly to each other — the foundation everything else (especially joins) builds on. Covered:
-- **Primary Key** — uniquely identifies each row; can't be NULL, can't repeat
-- **Foreign Key** — links one table to another table's primary key; enforces referential integrity and prevents orphan records
-- **Candidate Key** — any column that *could* uniquely identify a row on its own
-- **Alternate Key** — a candidate key that wasn't chosen as the primary key
-- **Unique Key** — enforces no duplicate values, but allows NULL (unlike primary key); tested both single-column and composite unique constraints
-- **Super Key** — any column or combination of columns that uniquely identifies a row, even with unnecessary extra columns
-- **Composite Key** — a primary key formed from two or more columns combined
-- **Natural Key** — a real-world business identifier (e.g. VIN, citizenship number)
-- **Surrogate Key** — a system-generated artificial identifier (e.g. `AUTO_INCREMENT`), with no business meaning
-- **Secondary Key** — a column indexed to speed up searching/filtering, not used for uniqueness
+Keys are how tables uniquely identify their rows and connect to each other — this is what makes joins actually work. I covered:
+- **Primary Key** — uniquely identifies each row; can't be empty, can't repeat
+- **Foreign Key** — links one table to another table, and blocks invalid or missing connections
+- **Candidate Key** — any column that could work as a unique identifier
+- **Alternate Key** — a candidate key that wasn't picked as the primary key
+- **Unique Key** — stops duplicate values, but unlike primary key, allows NULL
+- **Super Key** — any column or combination that can uniquely identify a row, even with extra unneeded columns
+- **Composite Key** — a primary key made from two or more columns together
+- **Natural Key** — a real-world ID like a VIN or citizenship number
+- **Surrogate Key** — a fake ID number the system generates automatically
+- **Secondary Key** — a column indexed to make searching faster
 
-All key types were tested hands-on in MySQL Workbench — inserting duplicates, NULLs, and invalid foreign key references to see exactly how each constraint behaves and what errors they throw.
+I tested every key type myself in MySQL — trying to insert duplicates, NULLs, and broken references — to actually see how each rule works and what error shows up when it's broken.
 
 ### JOINS
-- **INNER JOIN** — multi-table joins, row multiplication, aggregate-then-join pattern, multi-condition joins
-- **LEFT JOIN** — missing-record detection (anti-join pattern), `COALESCE`, `WHERE` vs `ON` filtering, multi-table data quality reports with `CASE WHEN`
+- **INNER JOIN** — combining tables, but only keeping rows that match in both. Learned about row multiplication and how to avoid it.
+- **LEFT JOIN** — keeping everything from one table even without a match, using `COALESCE` to clean up NULLs, and building simple data quality reports with `CASE WHEN`.
 
 ### Other
-`UPDATE`, `DELETE`, `CASE WHEN`, and practical differences between MySQL and Databricks/Spark SQL syntax.
+`UPDATE`, `DELETE`, `CASE WHEN`, and the small but important differences between MySQL and Databricks/Spark SQL.
 
 ## Repo Structure
-- `Select/`, `Where/`, `Order_By/`, `Limit/`, `Group_By/`, `Aggregate_functions/` — practice notebooks by topic
-- `KEYS/` — all key type examples and tests
-- `JOINS/` — inner join and left join practice sets
-- `PDF/` — reference notes from the bootcamp
-- `Test/` — stress-test rounds combining multiple concepts
+- `Select/`, `Where/`, `Order_By/`, `Limit/`, `Group_By/`, `Aggregate_functions/` — practice files by topic
+- `KEYS/` — all key examples and tests
+- `JOINS/` — inner join and left join practice
+- `PDF/` — reference notes
+- `Test/` — practice rounds combining everything
