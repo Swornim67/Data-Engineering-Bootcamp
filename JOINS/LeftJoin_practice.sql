@@ -6,9 +6,6 @@ select * from payments;
 select * from  products;
 
 
-
-
-
 -- Question 1: Show all customers and their orders if available.
 select 
 c.customer_id,c.customer_name,o.order_id,o.order_amount
