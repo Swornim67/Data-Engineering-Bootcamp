@@ -1,6 +1,6 @@
 # Data-Engineering-Bootcamp
 
-Data-x Bootcamp by Anurag Srivastava — my SQL learning journey, practiced hands-on in MySQL Workbench and Databricks.
+Data-x Bootcamp by Anurag Srivastava — my SQL learning journey, practiced hands-on in MySQL Workbench and Databricks(Till Now).
 
 ## Topics Covered
 
