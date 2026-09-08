@@ -1,6 +1,5 @@
 # Data-Engineering-Bootcamp
-
-Data-x Bootcamp by Anurag Srivastava — my SQL learning journey, practiced hands-on in MySQL Workbench and Databricks(Till Now).
+Data-x Bootcamp by Anurag Srivastava — my SQL learning journey, practiced hands-on in MySQL Workbench and Databricks (Till Now).
 
 ## Topics Covered
 
@@ -31,6 +30,7 @@ I tested every key type myself in MySQL — trying to insert duplicates, NULLs, 
 ### JOINS
 - **INNER JOIN** — combining tables, but only keeping rows that match in both. Learned about row multiplication and how to avoid it.
 - **LEFT JOIN** — keeping everything from one table even without a match, using `COALESCE` to clean up NULLs, and building simple data quality reports with `CASE WHEN`.
+- **RIGHT JOIN** — the mirror image of LEFT JOIN, keeping everything from the right table instead. Learned why it's rarely used in production, and practiced rewriting RIGHT JOIN queries as the more readable LEFT JOIN equivalent.
 
 ### Other
 `UPDATE`, `DELETE`, `CASE WHEN`, and the small but important differences between MySQL and Databricks/Spark SQL.
@@ -38,6 +38,6 @@ I tested every key type myself in MySQL — trying to insert duplicates, NULLs, 
 ## Repo Structure
 - `Select/`, `Where/`, `Order_By/`, `Limit/`, `Group_By/`, `Aggregate_functions/` — practice files by topic
 - `KEYS/` — all key examples and tests
-- `JOINS/` — inner join and left join practice
+- `JOINS/` — inner join, left join, and right join practice
 - `PDF/` — reference notes
 - `Test/` — practice rounds combining everything
