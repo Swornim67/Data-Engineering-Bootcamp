@@ -324,7 +324,7 @@ ON o.order_id = pay.order_id;
 -- Business asks: "Show all customers even if they have not ordered." How can you write it using RIGHT JOIN?
 	select c.customer_id,c.customer_name from orders o 
 	right join customers c 
-	on o.customer_id=c.customer_id;
+on o.customer_id=c.customer_id;
 
 -- Question 12 (Interview)
 -- Business asks: "Find products that were never ordered." How can you write it using RIGHT JOIN?
@@ -332,14 +332,14 @@ ON o.order_id = pay.order_id;
 	from orders o 
 	right join products p
 	on o.product_id=p.product_id
-	where o.order_id is null;
+where o.order_id is null;
 
 -- Question 13 (Interview)
 -- Business asks: "Find orders without payments." How can you write it using RIGHT JOIN?
 	select o.order_id,o.order_amount from payments p
 	right join orders o 
 	on p.order_id=o.order_id
-	where p.payment_id is null;
+where p.payment_id is null;
 
 -- Question 14 (Interview)
 -- What is the biggest mistake in RIGHT JOIN?
