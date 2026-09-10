@@ -41,7 +41,7 @@ select * from target_customers;
 
 -- QUERY
 select * from source_customers s
-full outer join target_customer t
+Full outer join target_customers t
 on s.customer_id=t.customer_id;
 
 -- As we know that the full outer join isnt supported in this mysql workebench 
