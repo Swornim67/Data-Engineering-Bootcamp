@@ -4,11 +4,11 @@
 -- a.id=b.id
 
 -- BUT ON THE NON EQUI/RANGE JOIN USES CONDITIONS LIKE:
->
-<
->=
-<=
-BETWEEN
+-- >
+-- <
+-- >=
+-- <=
+-- BETWEEN
 
 
 -- using this table.
