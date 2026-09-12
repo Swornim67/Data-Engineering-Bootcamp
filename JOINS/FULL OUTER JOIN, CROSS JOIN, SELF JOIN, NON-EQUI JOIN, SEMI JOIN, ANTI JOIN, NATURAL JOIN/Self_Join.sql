@@ -25,7 +25,7 @@ e.employee_id,e.employee_name
 from employees e 
 left join employees m
 on e.manager_id=m.employee_id
-where e.manager_id is null;
+where m.manager_id is null;
 
 -- Find Employee reporting to anurag. 
 
