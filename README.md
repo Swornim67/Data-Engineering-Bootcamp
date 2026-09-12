@@ -32,12 +32,17 @@ I tested every key type myself in MySQL — trying to insert duplicates, NULLs, 
 - **LEFT JOIN** — keeping everything from one table even without a match, using `COALESCE` to clean up NULLs, and building simple data quality reports with `CASE WHEN`.
 - **RIGHT JOIN** — the mirror image of LEFT JOIN, keeping everything from the right table instead. Learned why it's rarely used in production, and practiced rewriting RIGHT JOIN queries as the more readable LEFT JOIN equivalent.
 
+### Advanced Joins
+- **FULL OUTER JOIN** — complete data from both tables (matched + unmatched from both sides). Not supported in MySQL, so I simulated it using `LEFT JOIN + UNION + RIGHT JOIN`. Used it for a source-vs-target migration validation report with `CASE WHEN`.
+- **CROSS JOIN** — every possible combination between two tables (no `ON` condition needed). Useful for planning templates, but genuinely dangerous on large tables since it multiplies row counts fast.
+- **SELF JOIN** — joining a table to itself using two aliases, mainly for hierarchy data like employee-manager relationships. Learned why `LEFT JOIN` (not `INNER JOIN`) is needed here, so top-level managers with no manager of their own don't disappear.
+
 ### Other
 `UPDATE`, `DELETE`, `CASE WHEN`, and the small but important differences between MySQL and Databricks/Spark SQL.
 
 ## Repo Structure
 - `Select/`, `Where/`, `Order_By/`, `Limit/`, `Group_By/`, `Aggregate_functions/` — practice files by topic
 - `KEYS/` — all key examples and tests
-- `JOINS/` — inner join, left join, and right join practice
+- `JOINS/` — inner join, left join, right join, and advanced join practice (full outer, cross, self)
 - `PDF/` — reference notes
 - `Test/` — practice rounds combining everything
