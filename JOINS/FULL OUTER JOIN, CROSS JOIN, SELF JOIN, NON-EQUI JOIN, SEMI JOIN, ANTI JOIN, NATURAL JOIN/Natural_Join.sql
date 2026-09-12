@@ -15,4 +15,4 @@ select * from customers natural join orders;
 select customer_name,order_id,order_amount from customers natural join orders;
 
 -- Using NATURAL JOIN, find the total amount ordered by each customer.
-select customer_name,sum(order_amount) as `TOTAL AMOUNT BY EACH CUSTOMER` from customers natural join orders group by customer_name;
+select customer_name,sum(order_amount) as `TOTAL AMOUNT BY EACH CUSTOMER` from customers natural join orders group by customer_name ;
