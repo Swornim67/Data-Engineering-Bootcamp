@@ -34,3 +34,24 @@ join orders o
 on c.customer_id=o.customer_id
 group by c.customer_name
 having sum(o.order_amount)>50000;
+
+-- Question 4
+-- Find city-wise delivered revenue.
+select 
+c.city,sum(o.order_amount) as `TOTAL REVENUE`
+from customers c 
+join orders o 
+on c.customer_id=o.customer_id
+group by c.city;
+
+-- Question 5
+-- Find cities where delivered revenue is more than 50,000.
+select 
+c.city,sum(o.order_amount) as `TOTAL REVENUE`
+from customers c 
+join orders o
+on c.customer_id=o.customer_id
+group by c.city 
+having sum(o.order_amount) > 50000;
+
+
