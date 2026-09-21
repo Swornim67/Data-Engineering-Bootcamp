@@ -20,3 +20,5 @@ group by c.city
 having total_revenue > 50000
 -- sum(o.order_amount) > 50000
 order by total_revenue;
+
+
