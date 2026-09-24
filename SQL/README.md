@@ -36,6 +36,13 @@ I tested every key type myself in MySQL — trying to insert duplicates, NULLs, 
 - **FULL OUTER JOIN** — complete data from both tables (matched + unmatched from both sides). Not supported in MySQL, so I simulated it using `LEFT JOIN + UNION + RIGHT JOIN`. Used it for a source-vs-target migration validation report with `CASE WHEN`.
 - **CROSS JOIN** — every possible combination between two tables (no `ON` condition needed). Useful for planning templates, but genuinely dangerous on large tables since it multiplies row counts fast.
 - **SELF JOIN** — joining a table to itself using two aliases, mainly for hierarchy data like employee-manager relationships. Learned why `LEFT JOIN` (not `INNER JOIN`) is needed here, so top-level managers with no manager of their own don't disappear.
+- **NON-EQUI JOIN** — joining using a range condition (like `BETWEEN`) instead of exact equality. Used it to assign employees into salary bands.
+- **SEMI JOIN** — checking whether a match exists in another table, using `EXISTS`, without pulling in columns from that table.
+- **ANTI JOIN** — the opposite of SEMI JOIN: finding rows with no match at all, using `NOT EXISTS`. Learned why `NOT IN` is risky when the other table has NULLs.
+- **NATURAL JOIN** — auto-joins on same-named columns. Learned why it's avoided in production, since the join condition isn't visible and can silently break if a table's structure changes.
+
+### SQL Logical Execution Order
+Learned that SQL is written in one order but executed in a different one (`FROM → JOIN → WHERE → GROUP BY → HAVING → SELECT → ORDER BY`). This explains why WHERE can't use aggregate functions or SELECT aliases, while HAVING and ORDER BY can.
 
 ### Other
 `UPDATE`, `DELETE`, `CASE WHEN`, and the small but important differences between MySQL and Databricks/Spark SQL.
@@ -43,6 +50,7 @@ I tested every key type myself in MySQL — trying to insert duplicates, NULLs, 
 ## Repo Structure
 - `Select/`, `Where/`, `Order_By/`, `Limit/`, `Group_By/`, `Aggregate_functions/` — practice files by topic
 - `KEYS/` — all key examples and tests
-- `JOINS/` — inner join, left join, right join, and advanced join practice (full outer, cross, self)
+- `JOINS/` — inner join, left join, right join, and advanced join practice (full outer, cross, self, non-equi, semi, anti, natural)
+- `Execution Order/` — SQL logical execution order theory and practice
 - `PDF/` — reference notes
 - `Test/` — practice rounds combining everything
