@@ -41,8 +41,15 @@ I tested every key type myself in MySQL — trying to insert duplicates, NULLs, 
 - **ANTI JOIN** — the opposite of SEMI JOIN: finding rows with no match at all, using `NOT EXISTS`. Learned why `NOT IN` is risky when the other table has NULLs.
 - **NATURAL JOIN** — auto-joins on same-named columns. Learned why it's avoided in production, since the join condition isn't visible and can silently break if a table's structure changes.
 
-### SQL Logical Execution Order
-Learned that SQL is written in one order but executed in a different one (`FROM → JOIN → WHERE → GROUP BY → HAVING → SELECT → ORDER BY`). This explains why WHERE can't use aggregate functions or SELECT aliases, while HAVING and ORDER BY can.
+#SQL Logical Execution Order
+
+Written Order (Syntax):
+SELECT → FROM/JOIN/ON → WHERE → GROUP BY → HAVING → WINDOW → ORDER BY → LIMIT/OFFSET
+
+Logical Execution Order:
+FROM/JOIN/ON → WHERE → GROUP BY → HAVING → WINDOW → SELECT → DISTINCT → ORDER BY → LIMIT/OFFSET
+
+Learned that SQL is written in one order but logically executed in another. This explains why WHERE can't use aggregate functions or SELECT aliases, while HAVING works with aggregated results and ORDER BY can use SELECT aliases.
 
 ### Other
 `UPDATE`, `DELETE`, `CASE WHEN`, and the small but important differences between MySQL and Databricks/Spark SQL.
