@@ -70,30 +70,54 @@ where customer_id in
 
 -- 9. Customers with orders
 -- Find all customers who have placed at least one order. Use IN.
-
+select first_name,last_name,city
+from customers 
+where customer_id in 
+(select customer_id from orders);
 
 -- 10. Customers with no orders
 -- Find customers who have never placed an order. Use NOT IN.
-
+select first_name,last_name,city
+from customers 
+where customer_id not in 
+(select customer_id from orders);
 
 -- 11. Customers who bought Electronics
 -- Find customers who purchased at least one product from the Electronics category.
+select first_name,last_name
+from customers 
+where customer_id in
+(select customer_id from order_details
+where category='Electronics');
 
 
 -- 12. Customers who never bought Furniture
 -- Find customers who have never purchased a product from the Furniture category.
-
+select first_name,last_name 
+from customers 
+where customer_id  not in
+(select customer_id from order_details where category ='Furniture');
 
 -- 13. Products purchased by Delhi customers
 -- Find the products purchased by customers who live in Delhi.
 -- Return: product_name
-
+select distinct product_name from order_details 
+where customer_id in
+(select customer_id from customers where city='Delhi');
 
 -- 14. Products purchased by Mumbai customers
 -- Find all products purchased by customers from Mumbai.
 -- Return: product_name, category
-
+select distinct product_name,category from order_details 
+where customer_id in 
+(select customer_id from customers where city='Mumbai');
 
 -- 15. Customers who bought a Laptop
 -- Find customers who purchased a Laptop.
 -- Return: customer_id, first_name, last_name
+select customer_id,first_name,last_name from customers 
+where customer_id in
+(select customer_id from order_details where product_name='Laptop');
+
+
+
