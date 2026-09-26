@@ -43,13 +43,13 @@ I tested every key type myself in MySQL — trying to insert duplicates, NULLs, 
 
 #SQL Logical Execution Order
 
-Written Order (Syntax):
+Written Order:
 SELECT → FROM/JOIN/ON → WHERE → GROUP BY → HAVING → WINDOW → ORDER BY → LIMIT/OFFSET
 
 Logical Execution Order:
 FROM/JOIN/ON → WHERE → GROUP BY → HAVING → WINDOW → SELECT → DISTINCT → ORDER BY → LIMIT/OFFSET
 
-Learned that SQL is written in one order but logically executed in another. This explains why WHERE can't use aggregate functions or SELECT aliases, while HAVING works with aggregated results and ORDER BY can use SELECT aliases.
+This helped me understand why WHERE can't use aggregate functions or SELECT aliases, while HAVING works with aggregated results.
 
 ### Other
 `UPDATE`, `DELETE`, `CASE WHEN`, and the small but important differences between MySQL and Databricks/Spark SQL.
