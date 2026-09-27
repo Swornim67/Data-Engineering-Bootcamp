@@ -120,4 +120,141 @@ where customer_id in
 (select customer_id from order_details where product_name='Laptop');
 
 
+-- ============================================================
+-- 🟠 LEVEL 3: AGGREGATE SUBQUERIES (Questions 16 - 22)
+-- ============================================================
+
+-- 16. Customers spending above average
+-- Calculate each customer's total spending.
+-- Then find customers whose total spending is greater than the average customer spending. ( we do the sum of the number first then the avg)
+-- Return: customer_id, total_spent
+select customer_id,sum(total_amount) as total_spent
+from orders 
+group by customer_id
+having sum(total_amount) >
+(
+select avg(sum_amount) from 
+(
+select customer_id,sum(total_amount) as sum_amount from orders 
+group by customer_id
+) as total_amount
+);
+
+-- 17. Highest-spending customer
+-- Find the customer who has spent the most money.
+-- Return: customer_id, first_name, last_name, total_spent
+select 
+c.customer_id,c.first_name,c.last_name,sum(o.total_amount) as total_spent
+from customers c 
+join orders o 
+on c.customer_id=o.customer_id
+group by c.customer_id,c.first_name,c.last_name
+having sum(o.total_amount) = 
+(
+select max(total_spent) from 
+(
+select customer_id,sum(total_amount) as total_spent
+from orders 
+group by customer_id) as customer_total
+);
+
+-- 18. Lowest-spending customer
+-- Find the customer who has spent the least money across all their orders.
+-- Return: customer_id, first_name, last_name, total_spent
+select c.customer_id,c.first_name,c.last_name,sum(total_amount) as total_spent
+from customers c 
+join orders o 
+on c.customer_id=o.customer_id
+group by c.customer_id,c.first_name,c.last_name
+having sum(total_amount)=
+(
+select min(lowest_amount) from 
+(
+select customer_id,sum(total_amount) as lowest_amount from orders 
+group by customer_id ) as lowest_spent
+);
+
+-- 19. Second-highest order
+-- Find the order with the second-highest total_amount.
+-- Do not use LIMIT.
+SELECT order_id, customer_id, total_amount
+FROM orders
+where total_amount = 
+(
+select max(total_amount) as max_amt from orders where total_amount < 
+(select max(total_amount) as max_amt from orders) 
+);
+
+-- 20. Second-lowest order
+-- Find the order with the second-lowest total_amount.
+-- Do not use LIMIT.
+select customer_id,total_amount 
+from orders 
+where total_amount =
+(
+select min(total_amount) as min_amt from orders where total_amount >
+(select min(total_amount) as min_amt from orders)
+);
+
+
+-- 21. Most expensive product
+-- Find the product(s) with the highest price_each.
+-- Return: product_name, price_each
+select product_name,price_each 
+from order_details 
+where price_each= 
+(
+select max(price_each) as high_price from order_details);
+
+
+-- 22. Cheapest product
+-- Find the product(s) with the lowest price_each.
+select 
+product_name,price_each 
+from order_details 
+where price_each=
+(
+select min(price_each) from order_details);
+
+
+
+
+-- ============================================================
+-- 🔴 LEVEL 4: CORRELATED SUBQUERIES & EXISTS (Questions 23 - 30)
+-- ============================================================
+
+-- 23. Orders above customer average
+-- Find orders where the total_amount is greater than the average order amount 
+-- for that specific customer.
+-- Return: order_id, customer_id, total_amount
+
+
+-- 24. Customers with more than 2 orders
+-- Find customers who have placed more than 2 orders using EXISTS or a correlated subquery.
+-- Return: customer_id, first_name, last_name
+
+
+-- 25. Latest order per customer
+-- Find the most recent order for each customer (highest order_date per customer).
+-- Return: customer_id, order_id, order_date, total_amount
+
+
+-- 26. Customers who spent more than their city average
+-- Find customers whose total spending is greater than the average spending of customers in their city.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
